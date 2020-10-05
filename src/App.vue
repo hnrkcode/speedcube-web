@@ -1,32 +1,72 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+    <AppNavbar />
+    <div class="mt-5">
+      <router-view />
     </div>
-    <router-view />
+    <AppModal />
   </div>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+<script>
+import AppModal from "@/components/modal/AppModal.vue";
+import AppNavbar from "@/components/AppNavbar.vue";
+
+export default {
+  name: "App",
+  data() {
+    return {
+      authStatus: null,
+    };
+  },
+  components: {
+    AppNavbar,
+    AppModal,
+  },
+  methods: {
+    // Check if user is authenticated every N milliseconds.
+    checkAuthentication(intervall) {
+      this.authStatus = setInterval(() => {
+        this.$store.dispatch(
+          "auth/setAuthStatus",
+          localStorage.getItem("accessToken")
+        );
+      }, intervall);
+    },
+  },
+  created() {
+    this.checkAuthentication(10000);
+  },
+  beforeDestroy() {
+    clearInterval(this.authStatus);
+  },
+};
+</script>
+
+<style>
+.fade-enter {
+  opacity: 0;
+}
+.fade-enter-active {
+  transition: opacity 1s;
+}
+.fade-leave-active {
+  opacity: 0;
+  position: absolute;
+}
+.fade-move {
+  transition: transform 1s;
 }
 
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+/* Fade out statistics box if all times are removed. */
+.stats-enter {
+  opacity: 0;
+}
+.stats-enter-active {
+  transition: opacity 1s;
+}
+.stats-leave-active {
+  transition: opacity 1s;
+  opacity: 0;
 }
 </style>
