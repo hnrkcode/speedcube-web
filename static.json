@@ -6,7 +6,7 @@
     },
     "proxies": {
       "/api/": {
-        "origin": "${API_URL}"
+        "origin": "${VUE_APP_API_URL}"
       }
     }
   }
