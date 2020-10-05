@@ -42,6 +42,8 @@ export default {
       timerHandlers: {
         mousedown: vm.buttonDown,
         mouseup: vm.buttonUp,
+        touchstart: vm.buttonDown,
+        touchend: vm.buttonUp,
       },
     };
   },
@@ -73,9 +75,16 @@ export default {
       startBtn.classList.toggle(from);
       startBtn.classList.toggle(to);
     },
+    preventSelection() {
+      event.preventDefault();
+    },
     buttonDown() {
       if (!this.activeModal) {
-        if (event.type === "mousedown" || event.type === "keydown") {
+        if (
+          event.type === "mousedown" ||
+          event.type === "touchstart" ||
+          event.type === "keydown"
+        ) {
           // Get ready to start timer.
           if (this.buttonStatus === 0) {
             this.changeSignal("has-text-grey-light", "has-text-warning");
@@ -101,7 +110,11 @@ export default {
     },
     buttonUp() {
       if (!this.activeModal) {
-        if (event.type === "mouseup" || event.type === "keyup") {
+        if (
+          event.type === "mouseup" ||
+          event.type === "touchend" ||
+          event.type === "keyup"
+        ) {
           // Cancel before timer starts.
           if (this.buttonStatus === 1) {
             this.changeSignal("has-text-warning", "has-text-grey-light");
@@ -127,11 +140,15 @@ export default {
     // Start and stop timer with any keyboard keypress.
     window.addEventListener("keydown", this.buttonDown);
     window.addEventListener("keyup", this.buttonUp);
+    // Prevent user from select text because the timer doesn't work
+    // properly on touch screens with selection enabled.
+    window.addEventListener("selectstart", this.preventSelection);
   },
   beforeDestroy() {
     // Remove events when leaving the timer page.
     window.removeEventListener("keydown", this.buttonDown);
     window.removeEventListener("keyup", this.buttonUp);
+    window.removeEventListener("selectstart", this.preventSelection);
   },
 };
 </script>
@@ -142,15 +159,5 @@ export default {
 #timer-time {
   font-size: 5em;
   font-family: "Orbitron", sans-serif;
-}
-</style>
-
-<style>
-.fa-stack:hover {
-  transform: scale(0.75, 0.75);
-  cursor: pointer;
-}
-.fa-stack {
-  transition: transform 0.5s ease 0s;
 }
 </style>
