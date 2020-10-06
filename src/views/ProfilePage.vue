@@ -7,7 +7,7 @@
           <div class="tile is-vertical">
             <div class="tile is-parent">
               <article class="tile is-child notification" v-if="user !== null">
-                <h1 class="title">{{ user.username }}</h1>
+                <h1 class="title has-text-centered-mobile">{{ user.username }}</h1>
               </article>
             </div>
             <div class="tile">

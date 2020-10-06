@@ -3,7 +3,7 @@
     <template v-if="stats !== null">
       <transition name="stats">
         <div v-if="stats.total">
-          <article class="tile is-child">
+          <article class="tile is-child has-text-centered-mobile">
             <h2 class="title">Stats</h2>
             <p class="title is-size-5">
               Total:

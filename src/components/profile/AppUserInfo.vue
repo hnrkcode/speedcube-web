@@ -1,6 +1,6 @@
 <template>
   <div class="tile is-parent is-vertical" v-if="user !== null">
-    <article class="tile is-child">
+    <article class="tile is-child has-text-centered-mobile">
       <h2 class="title">Info</h2>
       <p v-if="user.username">
         Username:

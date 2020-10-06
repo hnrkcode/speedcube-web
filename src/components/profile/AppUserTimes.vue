@@ -2,7 +2,7 @@
   <div class="tile is-ancestor">
     <div class="tile is-parent">
       <article class="tile is-child">
-        <h2 class="title">Times</h2>
+        <h2 class="title has-text-centered-mobile">Times</h2>
         <template v-if="times.length">
           <transition-group name="fade">
             <div
