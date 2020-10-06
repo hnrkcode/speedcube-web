@@ -1,5 +1,5 @@
 <template>
-  <div class="column is-one-quarter">
+  <div class="column is-one-quarter has-text-centered-mobile">
     <h2 class="title">Statistics</h2>
     <p class="has-text-success">Best: {{ convertTime(bestTime) }}</p>
     <p class="has-text-danger">Worst: {{ convertTime(worstTime) }}</p>

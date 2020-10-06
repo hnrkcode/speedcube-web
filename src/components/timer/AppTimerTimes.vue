@@ -1,8 +1,9 @@
 <template>
-  <div class="column is-half">
+  <div class="column is-half has-text-centered-mobile">
     <h2 class="title">Times</h2>
     <transition-group tag="ul" name="fade">
       <li
+        class="py-3 px-2"
         v-for="(time, index) in times.slice().reverse()"
         :key="time.id"
         :class="{
@@ -12,7 +13,7 @@
       >
         <div class="level is-mobile">
           <div class="level-left">
-            <div class="level-item">{{ reversedIndex(index) + 1 }}.</div>
+            <div class="level-item">No. {{ reversedIndex(index) + 1 }}</div>
             <template v-if="times.length > 1">
               <div class="level-item" v-if="time.time === bestTime">
                 <font-awesome-icon icon="thumbs-up" title="Best time" />
@@ -23,7 +24,7 @@
             </template>
           </div>
           <div class="level-right">
-            <div v-if="time.comment">
+            <div class="level-item is-hidden-touch" v-if="time.comment">
               <p class="pr-5" :title="`${time.comment.slice(0, 150)}...`">
                 {{ time.comment.slice(0, 10) }}...
               </p>
@@ -58,7 +59,7 @@
             </div>
             <div class="level-item">
               <font-awesome-icon
-                icon="comment"
+                :icon="time.comment ? 'comment' : 'ellipsis-h'"
                 title="Add comment"
                 @click="
                   toggleModal({
@@ -112,6 +113,10 @@ export default {
 <style lang="scss">
 @import "~bulma";
 
+li {
+  border-bottom: thin solid;
+}
+
 .activated {
   border: solid $light 1px;
   border-radius: 10px;
@@ -123,14 +128,16 @@ export default {
 .dnf:hover,
 .penalty:hover,
 .fa-comment:hover,
-.fa-trash:hover {
+.fa-trash:hover,
+.fa-ellipsis-h:hover {
   transform: scale(2, 0.5);
   cursor: pointer;
 }
 .dnf,
 .penalty,
 .fa-trash,
-.fa-comment {
+.fa-comment,
+.fa-ellipsis-h {
   transition: transform 0.5s ease 0s;
 }
 </style>

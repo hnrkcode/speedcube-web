@@ -1,7 +1,7 @@
 <template>
   <div id="app-timer">
-    <div class="columns is-centered">
-      <div class="column is-one-quarter">
+    <div class="columns is-centered px-6">
+      <div class="column is-one-quarter has-text-centered-mobile">
         <span class="fa-stack fa-6x" v-on="timerHandlers">
           <font-awesome-icon
             id="start-button"
@@ -12,13 +12,13 @@
         </span>
       </div>
     </div>
-    <div class="columns is-centered">
-      <div class="column is-one-quarter">
+    <div class="columns is-centered px-6">
+      <div class="column is-one-quarter has-text-centered-mobile">
         <label id="timer-time">{{ formatDuration }}</label>
       </div>
     </div>
     <transition name="stats">
-      <div class="columns is-centered" v-if="hasTimes">
+      <div class="columns is-centered px-3" v-if="hasTimes">
         <AppTimerStats />
         <AppTimerTimes />
       </div>

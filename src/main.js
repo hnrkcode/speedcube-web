@@ -22,6 +22,7 @@ import {
   faThumbsDown,
   faTimes,
   faCheck,
+  faEllipsisH
 } from "@fortawesome/free-solid-svg-icons";
 
 library.add(
@@ -39,6 +40,7 @@ library.add(
   faThumbsDown,
   faTimes,
   faCheck,
+  faEllipsisH
 );
 
 Vue.component("font-awesome-icon", FontAwesomeIcon);
