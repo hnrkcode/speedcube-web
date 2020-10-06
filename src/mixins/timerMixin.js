@@ -15,6 +15,12 @@ export const timerMixin = {
     },
   },
   methods: {
+    resetTimer() {
+      this.start = 0;
+      this.now = 0;
+      this.tick = 0;
+      this.duration = 0;
+    },
     startTimer() {
       // Can only start the timer if it isn't already running.
       if (!this.tick) {

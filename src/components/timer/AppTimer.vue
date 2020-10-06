@@ -20,7 +20,7 @@
     <transition name="stats">
       <div class="columns is-centered px-3" v-if="hasTimes">
         <AppTimerStats />
-        <AppTimerTimes />
+        <AppTimerTimes @userClearedTimes="resetTimer" />
       </div>
     </transition>
   </div>

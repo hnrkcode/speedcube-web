@@ -1,6 +1,23 @@
 <template>
   <div class="column is-half has-text-centered-mobile">
-    <h2 class="title">Times</h2>
+    <div class="level">
+      <div class="level-left">
+        <div class="level-item">
+          <h2 class="title">Times</h2>
+        </div>
+      </div>
+      <div class="level-right">
+        <div class="level-item">
+          <button
+            class="button"
+            title="Clear screen without deleting saved data."
+            @click="clearScreen"
+          >
+            Clear times
+          </button>
+        </div>
+      </div>
+    </div>
     <transition-group tag="ul" name="fade">
       <li
         class="py-3 px-2"
@@ -102,9 +119,16 @@ export default {
   },
   methods: {
     ...mapActions("modal/", ["toggleModal"]),
-    ...mapActions("time/", ["toggleData", "removeTime"]),
+    ...mapActions("time/", ["toggleData", "removeTime", "resetTimeData"]),
     reversedIndex(i) {
       return this.times.length - i - 1;
+    },
+    clearScreen() {
+      // Send custom event to tell parent to reset the timer to 0.00.
+      this.$emit("userClearedTimes");
+      // Remove all times from the screen, but they are still saved in
+      // the database.
+      this.resetTimeData();
     },
   },
 };
