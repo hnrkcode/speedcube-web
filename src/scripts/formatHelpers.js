@@ -9,7 +9,7 @@ export const formatDate = (date, format = {}) => {
     format.second = "numeric";
   }
 
-  return new Date(date).toLocaleDateString(undefined, format);
+  return new Date(date).toLocaleDateString("sv-SE", format);
 };
 
 export const formatTime = (duration) => {
