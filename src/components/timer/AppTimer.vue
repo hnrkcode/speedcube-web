@@ -1,8 +1,12 @@
 <template>
   <div id="app-timer">
     <div class="columns is-centered px-6">
-      <div class="column is-one-quarter has-text-centered-mobile">
+      <div class="column is-one-quarter has-text-centered">
+
         <span class="fa-stack fa-6x" v-on="timerHandlers">
+        <p id="start-button-message" class="title is-size-4">
+          HOLD
+        </p>
           <font-awesome-icon
             id="start-button"
             icon="circle"
@@ -70,7 +74,9 @@ export default {
         comment: "",
       });
     },
-    changeSignal(from, to) {
+    changeSignal(from, to, msg) {
+      const startBtnMsg = document.getElementById("start-button-message");
+      startBtnMsg.textContent = msg;
       const startBtn = document.getElementById("start-button");
       startBtn.classList.toggle(from);
       startBtn.classList.toggle(to);
@@ -87,12 +93,20 @@ export default {
         ) {
           // Get ready to start timer.
           if (this.buttonStatus === 0) {
-            this.changeSignal("has-text-grey-light", "has-text-warning");
+            this.changeSignal(
+              "has-text-grey-light",
+              "has-text-warning",
+              "WAIT"
+            );
             this.buttonStatus = 1;
 
             this.timeout = setTimeout(() => {
               if (this.buttonStatus === 1) {
-                this.changeSignal("has-text-warning", "has-text-success");
+                this.changeSignal(
+                  "has-text-warning",
+                  "has-text-success",
+                  "RELEASE"
+                );
                 this.buttonStatus = 2;
               }
             }, 500);
@@ -100,7 +114,7 @@ export default {
 
           // Stop the timer.
           if (this.buttonStatus === 3) {
-            this.changeSignal("has-text-danger", "has-text-grey-light");
+            this.changeSignal("has-text-danger", "has-text-grey-light", "HOLD");
             this.buttonStatus = 0;
             this.stopTimer();
             this.logTime();
@@ -117,13 +131,17 @@ export default {
         ) {
           // Cancel before timer starts.
           if (this.buttonStatus === 1) {
-            this.changeSignal("has-text-warning", "has-text-grey-light");
+            this.changeSignal(
+              "has-text-warning",
+              "has-text-grey-light",
+              "HOLD"
+            );
             this.buttonStatus = 0;
           }
 
           // Start timer.
           if (this.buttonStatus === 2) {
-            this.changeSignal("has-text-success", "has-text-danger");
+            this.changeSignal("has-text-success", "has-text-danger", "STOP");
             this.buttonStatus = 3;
             this.startTimer();
           }
@@ -156,8 +174,17 @@ export default {
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Anton&family=Montserrat&family=Orbitron:wght@900&display=swap");
 
-#timer-time {
+#timer-time,
+#start-button-message {
   font-size: 5em;
   font-family: "Orbitron", sans-serif;
+}
+.fa-stack {
+  height: 3em;
+  margin-bottom: -50px;
+}
+
+#start-button-message.fa-stack-1x {
+
 }
 </style>
