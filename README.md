@@ -4,6 +4,12 @@ This repository contains the code for the frontend part of the speedcube timer w
 
 The look and feel of the website are created with the CSS framework [Bulma](https://bulma.io/), [Font Awesome icons](https://fontawesome.com/) and [Google fonts](https://fonts.google.com/).
 
+## Demo
+
+![timer demo](/demo/timer.gif)
+![timer demo](/demo/register.gif)
+![timer demo](/demo/settings.gif)
+
 ## Project setup
 
 ```
